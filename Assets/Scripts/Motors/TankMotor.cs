@@ -15,8 +15,19 @@ public class TankMotor : MonoBehaviour
     {
         controller.SimpleMove(movement);
     }
+
     public void rotate(Vector3 rotation)
     {
         transform.Rotate(rotation);
+    }
+
+    public void ShootBullet()
+    {
+
+    }
+
+    public void ShootMissile()
+    {
+
     }
 }

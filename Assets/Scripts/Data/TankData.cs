@@ -9,8 +9,13 @@ public class TankData : MonoBehaviour
     public float rotationSpeed;
     public float healthCurrent;
     public float healthMax;
-    public float fireRatePerSec;
+    public float bulletFireRate;
     public float bulletSpeed;
     public float bulletDamage;
+    public float bulletDestroyTime;
+    public float missileFireRate;
+    public float missileSpeed;
+    public float missileDamage;
+    public float missileDestroyTime;
 
 }

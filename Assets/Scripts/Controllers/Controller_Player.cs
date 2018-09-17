@@ -18,10 +18,12 @@ public class Controller_Player : MonoBehaviour
         if (Input.GetButton("Shoot1"))
         {
             // Shoot machine gun
+            motor.ShootBullet();
         }
         if (Input.GetButton("Shoot2"))
         {
             // Shoot cannon
+            motor.ShootMissile();
         }
         if (Input.GetButton("MoveForward"))
         {
