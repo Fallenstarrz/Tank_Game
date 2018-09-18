@@ -28,13 +28,13 @@ public class Controller_Player : MonoBehaviour
         if (Input.GetButton("MoveForward"))
         {
             // Move Forward
-            Vector3 movementVector = (transform.forward * data.movementSpeed);
+            Vector3 movementVector = (transform.forward * data.movementSpeed * Time.deltaTime);
             motor.move(movementVector);
         }
         if (Input.GetButton("MoveBackward"))
         {
             // Move Backward
-            Vector3 movementVector = (transform.forward * data.movementSpeed);
+            Vector3 movementVector = (transform.forward * data.movementSpeed * Time.deltaTime);
             motor.move(-movementVector);
         }
         if (Input.GetButton("RotateRight"))

@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class TankMotor : MonoBehaviour
 {
-    public CharacterController controller;
 
     private void Start()
     {
-        controller = GetComponent<CharacterController>();
+
     }
 
     public void move(Vector3 movement)
     {
-        controller.SimpleMove(movement);
+        transform.Translate(movement);
     }
 
     public void rotate(Vector3 rotation)
