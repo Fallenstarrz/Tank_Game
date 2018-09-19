@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TankMotor : MonoBehaviour
 {
+    public Transform firingPoint;
+    public GameObject bulletPrefab;
+    public GameObject missilePrefab;
 
     private void Start()
     {
@@ -22,11 +25,15 @@ public class TankMotor : MonoBehaviour
 
     public void ShootBullet()
     {
-
+        // On start of bullet Destroy(gameObject, lifespan)
+        // On start run function that applies rigidbody force to object
+        Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
     }
 
     public void ShootMissile()
     {
-
+        // On start of bullet Destroy(gameObject, lifespan)
+        // On start run function that applies rigidbody force to object
+        Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
     }
 }
