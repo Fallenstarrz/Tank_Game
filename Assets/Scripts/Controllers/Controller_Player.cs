@@ -15,12 +15,12 @@ public class Controller_Player : MonoBehaviour
 	
 	void Update ()
     {
-        if (Input.GetButton("Shoot1"))
+        if (Input.GetButtonDown("Shoot1"))
         {
             // Shoot machine gun
             motor.ShootBullet();
         }
-        if (Input.GetButton("Shoot2"))
+        if (Input.GetButtonDown("Shoot2"))
         {
             // Shoot cannon
             motor.ShootMissile();

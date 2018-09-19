@@ -22,6 +22,9 @@ GameObject:
   - component: {fileID: 33843274600839662}
   - component: {fileID: 23593900633953398}
   - component: {fileID: 135271917927006340}
+  - component: {fileID: 54664903146321200}
+  - component: {fileID: 114628547963992012}
+  - component: {fileID: 114532276465820766}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -84,6 +87,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1262276494356182}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54664903146321200
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262276494356182}
+  serializedVersion: 2
+  m_Mass: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &114532276465820766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262276494356182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53bb00ed054df26408808c72f3ee19ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 0
+  backwardMovementSpeed: 0
+  rotationSpeed: 0
+  healthCurrent: 0
+  healthMax: 0
+  bulletFireRate: 0
+  bulletSpeed: 500
+  bulletDamage: 0
+  bulletDestroyTimer: 1
+  missileFireRate: 0
+  missileSpeed: 500
+  missileDamage: 0
+  missileDestroyTimer: 1
+--- !u!114 &114628547963992012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262276494356182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e467e7bce7de45242aa62c8b4ca6a02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!135 &135271917927006340
 SphereCollider:
   m_ObjectHideFlags: 1
