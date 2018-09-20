@@ -12,15 +12,13 @@ public class TankData : MonoBehaviour
     public float healthMax;
 
     // Bullet Variables
-    public float bulletFireRate;
-    public float bulletSpeed;
-    public float bulletDamage;
-    public float bulletDestroyTimer;
+    public float bulletCooldownMax;
+    public float bulletCooldownCurrent;
+
 
     // Missile Variables
-    public float missileFireRate;
-    public float missileSpeed;
-    public float missileDamage;
-    public float missileDestroyTimer;
+    public float missileCooldownMax;
+    public float missileCooldownCurrent;
+
 
 }

@@ -8,9 +8,23 @@ public class TankMotor : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject missilePrefab;
 
+    [HideInInspector] public TankData data;
+
     private void Start()
     {
+        data = GetComponent<TankData>();
+    }
 
+    private void Update()
+    {
+        if (data.missileCooldownCurrent >= 0)
+        {
+            data.missileCooldownCurrent -= Time.deltaTime;
+        }
+        if (data.bulletCooldownCurrent >= 0)
+        {
+            data.bulletCooldownCurrent -= Time.deltaTime;
+        }
     }
 
     public void move(Vector3 movement)
@@ -23,17 +37,33 @@ public class TankMotor : MonoBehaviour
         transform.Rotate(rotation);
     }
 
+    bool checkCooldown(float cooldown)
+    {
+        if (cooldown >= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public void ShootBullet()
     {
-        // On start of bullet Destroy(gameObject, lifespan)
-        // On start run function that applies rigidbody force to object
-        Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
+        if (checkCooldown(data.bulletCooldownCurrent))
+        {
+            data.bulletCooldownCurrent = data.bulletCooldownMax;
+            Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
+        }
     }
 
     public void ShootMissile()
     {
-        // On start of bullet Destroy(gameObject, lifespan)
-        // On start run function that applies rigidbody force to object
-        Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
+        if (checkCooldown(data.missileCooldownCurrent))
+        {
+            data.missileCooldownCurrent = data.missileCooldownMax;
+            Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
+        }
     }
 }

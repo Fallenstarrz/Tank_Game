@@ -1,0 +1,32 @@
+﻿There are project requirements for Milestone 1:
+
+
+
+
+1. Tank Exists and Moves in (Valuable) Test Environment
+	Done
+2. Player Input in Player Controller
+	Done
+3. Movement in Separate Tank Mover or Pawn
+	Done
+4. Movement uses Transform.Rotate()
+	Done
+5. Movement uses CharacterController.SimpleMove()
+	Done
+6. Shooter Component Fires Shell in Direction Tank Cannon (or Tank) is facing
+	Done
+7. Shooter Component limited in fire rate using one of the timers covered in class
+	Done
+8. Tank Variables are Exposed for Designers in Separate TankData Component
+	Done
+9. Shells Collide with other tanks, do damage to other tanks, and track which shooter fired the shell
+	NOT DONE
+10. Shells self-destruct after time AND after collision with ANY collider
+	NOT DONE
+11. Game Manager exits, is singleton, and allows easy access to player TankData component and updated list of enemy TankData components.
+	NOT DONE
+
+Bug/Error Free
+Comments
+Project Organization
+Game Exceeds Minimum Requirements

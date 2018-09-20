@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 136951004247009238}
   - component: {fileID: 54976107765493886}
   - component: {fileID: 114286069152957440}
-  - component: {fileID: 114782868888247682}
+  - component: {fileID: 114128912580919964}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1744967575636022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.002, y: 0.273, z: 0.931}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -102,6 +102,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 16
   m_CollisionDetection: 0
+--- !u!114 &114128912580919964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744967575636022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbf225071cb2974fb9a91c340155524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpeed: 500
+  projectileDamage: 10
+  projectileLifespan: 3
 --- !u!114 &114286069152957440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,30 +129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 0}
   rb: {fileID: 0}
---- !u!114 &114782868888247682
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1744967575636022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53bb00ed054df26408808c72f3ee19ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 0
-  backwardMovementSpeed: 0
-  rotationSpeed: 0
-  healthCurrent: 0
-  healthMax: 0
-  bulletFireRate: 0
-  bulletSpeed: 500
-  bulletDamage: 0
-  bulletDestroyTimer: 1
-  missileFireRate: 0
-  missileSpeed: 500
-  missileDamage: 0
-  missileDestroyTimer: 1
 --- !u!136 &136951004247009238
 CapsuleCollider:
   m_ObjectHideFlags: 1

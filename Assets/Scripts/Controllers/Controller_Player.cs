@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class Controller_Player : MonoBehaviour
 {
-    private TankData data;
-    private TankMotor motor;
+    [HideInInspector] private TankData data;
+    [HideInInspector] private TankMotor motor;
 
-	void Start ()
+    void Start()
     {
         data = GetComponent<TankData>();
         motor = GetComponent<TankMotor>();
-	}
-	
+    }
+
+
 	void Update ()
     {
-        if (Input.GetButtonDown("Shoot1"))
+        if (Input.GetButton("Shoot1"))
         {
             // Shoot machine gun
             motor.ShootBullet();
         }
-        if (Input.GetButtonDown("Shoot2"))
+        if (Input.GetButton("Shoot2"))
         {
             // Shoot cannon
             motor.ShootMissile();
