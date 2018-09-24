@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public int score;
 
-	// Use this for initialization
-	void Start ()
+    public List<TankData> players;
+    public List<TankData> aiUnits;
+
+    // Use this for initialization
+    void Awake ()
     {
         if (instance == null)
         {

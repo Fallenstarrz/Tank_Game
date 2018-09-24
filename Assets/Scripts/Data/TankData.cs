@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TankData : MonoBehaviour
 {
+    // Player Variables
+    // TODO: Need to make a way for the player to set their tanks name and randomly generate names for AI enemies
+    public string myName = "No Name";
+
     // Tank Variables
     public float movementSpeed;
     public float backwardMovementSpeed;

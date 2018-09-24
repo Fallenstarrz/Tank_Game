@@ -11,6 +11,8 @@ public class Controller_Player : MonoBehaviour
     {
         data = GetComponent<TankData>();
         motor = GetComponent<TankMotor>();
+
+        GameManager.instance.players.Add(this.data);
     }
 
 
@@ -50,5 +52,11 @@ public class Controller_Player : MonoBehaviour
             Vector3 vectorRotation = Vector3.up * data.rotationSpeed * Time.deltaTime;
             motor.rotate(-vectorRotation);
         }
+    }
+
+    private void OnDestroy()
+    {
+        // Add to GameManager List players
+        GameManager.instance.players.Remove(this.data);
     }
 }

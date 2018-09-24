@@ -15,6 +15,7 @@ public class TankMotor : MonoBehaviour
         data = GetComponent<TankData>();
     }
 
+    // Reduce current cooldowns, so the skill can eventually be used again
     private void Update()
     {
         if (data.missileCooldownCurrent >= 0)
@@ -27,16 +28,19 @@ public class TankMotor : MonoBehaviour
         }
     }
 
+    // move the character by x (parameter)
     public void move(Vector3 movement)
     {
         transform.Translate(movement);
     }
 
+    // rotate the character by x (parameter)
     public void rotate(Vector3 rotation)
     {
         transform.Rotate(rotation);
     }
 
+    // check the cooldown of skills
     bool checkCooldown(float cooldown)
     {
         if (cooldown >= 0)
@@ -49,21 +53,30 @@ public class TankMotor : MonoBehaviour
         }
     }
 
+    // shoots bullets
     public void ShootBullet()
     {
+        // checks if the cooldown is ready for use or not
         if (checkCooldown(data.bulletCooldownCurrent))
         {
+            // set cooldown to the designer defined shooting rate
             data.bulletCooldownCurrent = data.bulletCooldownMax;
-            Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
+            // create a bullet to be fired and save it for use in a moment
+            var bullet = Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
+            // use the variable bullet we created a moment ago to get the name of the person who shot it
+            bullet.GetComponent<ProjectileData>().shooterName = this.data.myName;
         }
     }
 
+    // shoots missiles
+    // Everything inside works like the ShootBullets() function
     public void ShootMissile()
     {
         if (checkCooldown(data.missileCooldownCurrent))
         {
             data.missileCooldownCurrent = data.missileCooldownMax;
-            Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
+            var missile = Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
+            missile.GetComponent<ProjectileData>().shooterName = this.data.myName;
         }
     }
 }
