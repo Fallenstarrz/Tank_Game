@@ -1,0 +1,35 @@
+﻿There are project requirements for Milestone 2:
+
+
+
+
+1. Milestone 1 still works
+
+2. Game includes at least 4 AI tanks (Controllers)
+
+3. AI tank personalities detailed in text file and these personalities necessitate a different FSM per tank
+
+4. Chase behavior
+
+5. Flee behavior
+
+6. Patrol behavior
+
+7. "Hearing" (distance + noisemaker) and "Vision" (FOV, LOS, distance)
+
+8. AI and Player Tanks use EXACTLY the same components (except for controller)
+
+9. Each AI controller is a unique FSM
+
+10. ALL movement behaviors (Chase Fless Patrol ETC) expand to use object avoidance.
+
+11. Game Manager exists, is singleton, and allows easy access to player TankData component and updated list of enemy TankData components.
+
+
+
+
+
+Bug/Error Free
+Comments
+Project Organization
+Game Exceeds Minimum Requirements
