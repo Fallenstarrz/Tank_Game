@@ -13,6 +13,8 @@ public class Controller_Player : MonoBehaviour
         motor = GetComponent<TankMotor>();
 
         GameManager.instance.players.Add(this.data);
+
+        // Set mesh color to purple
     }
 
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Controller_AI : MonoBehaviour
 {
-    /*[HideInInspector]*/ public TankData data;
-    /*[HideInInspector]*/ public TankMotor motor;
+    [HideInInspector] public TankData data;
+    [HideInInspector] public TankMotor motor;
 
     public enum personalities
     {
@@ -22,7 +22,7 @@ public class Controller_AI : MonoBehaviour
         data = GetComponent<TankData>();
         motor = GetComponent<TankMotor>();
         GameManager.instance.aiUnits.Add(this.data);
-        personality = (personalities)Random.Range(1, 4);
+        personality = (personalities)Random.Range(0, 4);
 
         switch (personality)
         {
@@ -44,7 +44,7 @@ public class Controller_AI : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        motor.ShootMissile();
+        //motor.ShootMissile();
 	}
 
     private void OnDestroy()
@@ -53,3 +53,5 @@ public class Controller_AI : MonoBehaviour
         GameManager.instance.aiUnits.Remove(this.data);
     }
 }
+
+// AI need sight and hearing
