@@ -15,14 +15,48 @@ public class Controller_AI_Guard : MonoBehaviour
     public states currentState;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-		// Set mesh color to green
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        // Set mesh color to blue
+        currentState = states.patrol;
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+        switch (currentState)
+        {
+            case states.chase:
+                stateChase();
+                break;
+            case states.flee:
+                stateFlee();
+                break;
+            case states.patrol:
+                statePatrol();
+                break;
+        }
+    }
+
+    void stateChase()
+    {
+        // stand your ground
+        // rotate to players position
+        // keep firing on cooldown
+        // if health is below half
+        // go into flee state
+    }
+
+    void stateFlee()
+    {
+        // stay in flee state for X seconds
+        // return to patrolling state
+    }
+
+    void statePatrol()
+    {
+        // Walk around your waypoints in an organized fashion
+        // if we see player
+        // go into chase state
+    }
 }

@@ -24,5 +24,9 @@ public class TankData : MonoBehaviour
     public float missileCooldownMax;
     public float missileCooldownCurrent;
 
-
+    // Sense Variables
+    public float viewDistance;
+    public float fieldOfView;
+    public float hearingDistance;
+    public float wallDetectDistance;
 }

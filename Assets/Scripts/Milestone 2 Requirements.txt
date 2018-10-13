@@ -4,11 +4,11 @@
 
 
 1. Milestone 1 still works
-
+	
 2. Game includes at least 4 AI tanks (Controllers)
-
+	
 3. AI tank personalities detailed in text file and these personalities necessitate a different FSM per tank
-
+	
 4. Chase behavior
 
 5. Flee behavior
