@@ -26,18 +26,24 @@ public class TankMotor : MonoBehaviour
         {
             data.bulletCooldownCurrent -= Time.deltaTime;
         }
+        if (data.noiseLevel >= 0)
+        {
+            data.noiseLevel -= data.noiseLevelReducPerSec;
+        }
     }
 
     // move the character by x (parameter)
     public void move(Vector3 movement)
     {
         transform.Translate(movement);
+        data.noiseLevel = data.moveNoiseLevel;
     }
 
     // rotate the character by x (parameter)
     public void rotate(Vector3 rotation)
     {
         transform.Rotate(rotation);
+        data.noiseLevel = data.rotateNoiseLevel;
     }
 
     // check the cooldown of skills
@@ -65,6 +71,9 @@ public class TankMotor : MonoBehaviour
             var bullet = Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
             // use the variable bullet we created a moment ago to get the name of the person who shot it
             bullet.GetComponent<ProjectileData>().shooterName = this.data.myName;
+
+            // Set noiseLevel
+            data.noiseLevel = data.bulletNoiseLevel;
         }
     }
 
@@ -78,5 +87,13 @@ public class TankMotor : MonoBehaviour
             var missile = Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
             missile.GetComponent<ProjectileData>().shooterName = this.data.myName;
         }
+        data.noiseLevel = data.missileNoiseLevel;
+    }
+
+    public void rotateTowards(Vector3 targetDirection)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, data.rotationSpeed * Time.deltaTime);
+        data.noiseLevel = data.rotateNoiseLevel;
     }
 }

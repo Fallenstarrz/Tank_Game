@@ -7,9 +7,21 @@ public class Controller_AI : MonoBehaviour
     [HideInInspector] public TankData data;
     [HideInInspector] public TankMotor motor;
     public List<Transform> waypoints;
-    public int currentWaypoint;
+    public int currentWaypoint = 0;
 
-    public enum personalities
+    public float timeInFlee;
+    public float timeToFlee;
+
+    public float closeEnough;
+    public float distanceToMaintain;
+    public float distanceToMaintainGuard;
+    public float distanceToMaintainAgressive;
+    public float distanceToMaintainStalker;
+    public float distanceToMaintainSkittish;
+
+    public float skittishShootingAngle;
+
+    [HideInInspector]public enum personalities
     {
         stalker,
         skittish,
@@ -24,23 +36,35 @@ public class Controller_AI : MonoBehaviour
         data = GetComponent<TankData>();
         motor = GetComponent<TankMotor>();
         GameManager.instance.aiUnits.Add(this.data);
-        personality = (personalities)Random.Range(0, 4);
 
-        switch (personality)
-        {
+       // Can use this script to randomly and dynamically select a personality for your AIs
+
+       personality = (personalities)Random.Range(0, 4);
+       // Debug purposes only: Uncomment the AI type you want to test and comment out the rest including the random above. Default should be random
+       // When finished testing make sure you uncomment the 
+       //personality = personalities.agressive;
+       //personality = personalities.guard;
+       //personality = personalities.skittish;
+       //personality = personalities.stalker;
+       switch (personality)
+       {
             case personalities.agressive:
                 gameObject.AddComponent<Controller_AI_Agressive>();
+                distanceToMaintain = distanceToMaintainAgressive;
                 break;
             case personalities.skittish:
                 gameObject.AddComponent<Controller_AI_Skittish>();
+                distanceToMaintain = distanceToMaintainGuard;
                 break;
             case personalities.stalker:
                 gameObject.AddComponent<Controller_AI_Stalker>();
+                distanceToMaintain = distanceToMaintainStalker;
                 break;
             case personalities.guard:
                 gameObject.AddComponent<Controller_AI_Guard>();
+                distanceToMaintain = distanceToMaintainGuard;
                 break;
-        }
+       }
     }
 	
 	// Update is called once per frame
@@ -50,26 +74,6 @@ public class Controller_AI : MonoBehaviour
         // Debug.DrawRay(transform.position + (transform.forward * data.wallDetectDistance), -transform.up, Color.red);
         // Debug line to check if forward direction is obstructed
         // Debug.DrawRay(transform.position, transform.forward * data.wallDetectDistance, Color.blue);
-
-        // If there are no obstacles obstructing our movement path, move forward
-        if (canMove())
-        {
-            motor.rotate(Vector3.up * data.rotationSpeed * Time.deltaTime);
-        }
-        else
-        {
-            // If there is a floor to walk on, move forward
-            if (floorExists())
-            {
-                motor.move(Vector3.forward * data.movementSpeed * Time.deltaTime);
-            }
-            // If there is no floor to walk on, rotate until we find a floor to walk on
-            else
-            {
-                motor.rotate(Vector3.up * data.rotationSpeed * Time.deltaTime);
-            }
-        }
-        canSeeTarget();
     }
 
     private void OnDestroy()
@@ -78,18 +82,18 @@ public class Controller_AI : MonoBehaviour
         GameManager.instance.aiUnits.Remove(this.data);
     }
 
-    bool canMove()
+    public bool canMove()
     {
         // If raycast hits nothing return true
         if (Physics.Raycast(transform.position, transform.forward, data.wallDetectDistance))
         {
-            return true;
+            return false;
         }
         // else return false
-        return false;
+        return true;
     }
 
-    bool floorExists()
+    public bool floorExists()
     {
         // If raycast hits nothing return false, floor doesn't exist
         if (Physics.Raycast(transform.position + (transform.forward * data.wallDetectDistance), -transform.up, data.wallDetectDistance))
@@ -100,7 +104,7 @@ public class Controller_AI : MonoBehaviour
         return false;
     }
 
-    bool canSeeTarget()
+    public bool canSeeTarget()
     {
         // Create a vector to target by getting the target position and subtracting our current position
         Vector3 vectorToTarget = (GameManager.instance.players[0].transform.position - transform.position);
@@ -132,9 +136,49 @@ public class Controller_AI : MonoBehaviour
         return true;
     }
 
-    bool canHearTarget()
+    public bool canHearTarget()
     {
         float distance = Vector3.Distance(transform.position, GameManager.instance.players[0].transform.position);
-        return distance < data.hearingDistance;
+        if (distance >= (GameManager.instance.players[0].noiseLevel + data.hearingDistance))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public void obstacleAvoidanceMove()
+    {
+        // If there are no obstacles obstructing our movement path, move forward
+        if (canMove())
+        {
+            // If there is a floor to walk on, move forward
+            if (floorExists())
+            {
+                motor.move(Vector3.forward * data.movementSpeed * Time.deltaTime);
+            }
+            else
+            {
+                motor.rotate(Vector3.up * data.rotationSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            motor.rotate(Vector3.up * data.rotationSpeed * Time.deltaTime);
+        }
+    }
+    public void getNextWaypoint()
+    {
+        int maxWaypoints = GameManager.instance.waypoints.Count - 1;
+        if (currentWaypoint < maxWaypoints)
+        {
+            currentWaypoint++;
+        }
+        else
+        {
+            currentWaypoint = 0;
+        }
     }
 }

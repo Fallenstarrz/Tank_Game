@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public List<TankData> players;
     public List<TankData> aiUnits;
 
+    public List<Transform> waypoints;
+
     // Use this for initialization
     void Awake ()
     {

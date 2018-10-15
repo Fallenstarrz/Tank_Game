@@ -1,0 +1,43 @@
+﻿Controller_AI:
+	Controller_AI holds all of the logic for controlling the AI's. The FSMs for their personalities are inside of their respective scripts, but this one is important
+	for controlling their movements, rotations and senses.
+
+Agressive : 
+	Agressive AI is a standard seek and destroy AI
+	Patrol:
+		Walks through his square hunting for the player. When he finds the player he goes into chase
+	Chase:
+		He runs directly at the player until he is within a range that a designer can specify and then keeps shooting until he loses the target or his health gets below half then he goes to flee.
+	Flee:
+		Runs away from the player to try to escape with his life. When enough time has passed he will return to try finish the job!
+
+Guard : 
+	Guard AI stays in his zone and tries to protect what is his!
+	Patrol: 
+		Walks around the room hunting for intuders. When he finds the player he goes into chase
+	Chase:
+		He will stand his ground until the threat is neutralized or leaves his sense range then he will return to patrol
+		If he gets below half he will run away before returning to patrol
+	Flee:
+		Runs away from the player to try to gain some distance before re-engaging to get you off his lawn
+
+Stalker : 
+	Creepy AI that seems to run around randomly, but if he catches you from behind he will be relentless!
+	Patrol: 
+		Walks around the room hunting for intruders. When he finds the player he will go into chase.
+	Chase: 
+		He will try to get behind the player (distance up to designers) and then rotate to start firing at them.
+		If he gets hit by the player he will run away. Stalkers don't like getting caught! 
+		If he loses the player he will return to Patrol.
+	Flee:
+		Runs away for X time. Then he will return to Patrol state.
+
+Skittish : 
+	My personal favorite AI. He is a scared little tank who runs at the first sign of danger, but his curious nature always makes him check it out once he has calmed down!
+	Patrol:
+		He stays in place scanning his surroundings until he sees danger then runs away (Flee state)
+	Chase:
+		Returns to the place he heard the noise. If he finds an enemy there he will take aim and shoot at him before running away again.
+		If he finds nothing there he will use that as his new hiding spot while he scans the area in patrol mode.
+	Flee:
+		He will run away for X seconds after recording the place he saw or heard the thing that scared him, so he can check it out later (during chase)
