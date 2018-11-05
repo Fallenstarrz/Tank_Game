@@ -36,7 +36,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4901110169611170}
-  - component: {fileID: 114509605826376866}
   m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
@@ -139,6 +138,7 @@ GameObject:
   - component: {fileID: 54556835460647758}
   - component: {fileID: 114647844339431250}
   - component: {fileID: 136295327243438162}
+  - component: {fileID: 114353341990136974}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -295,7 +295,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1765270513112866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.03}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4851291228304256}
@@ -567,7 +567,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!81 &81523522198496972
 AudioListener:
@@ -576,19 +576,20 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1139524262580510}
   m_Enabled: 1
---- !u!114 &114509605826376866
+--- !u!114 &114353341990136974
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1077427266100896}
+  m_GameObject: {fileID: 1765270513112866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e467e7bce7de45242aa62c8b4ca6a02f, type: 3}
+  m_Script: {fileID: 11500000, guid: ce1be49dc75473346bbcc844ced1b304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
-  rb: {fileID: 0}
+  buffs: []
+  expiredBuffs: []
 --- !u!114 &114647844339431250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -618,10 +619,20 @@ MonoBehaviour:
   rotationSpeed: 180
   healthCurrent: 25
   healthMax: 25
+  noiseLevelReducPerSec: 0
+  rotateNoiseLevel: 0
+  moveNoiseLevel: 0
   bulletCooldownMax: 0.25
   bulletCooldownCurrent: 0
+  bulletNoiseLevel: 0
   missileCooldownMax: 1
   missileCooldownCurrent: 0
+  missileNoiseLevel: 0
+  viewDistance: 0
+  fieldOfView: 0
+  hearingDistance: 0
+  wallDetectDistance: 0
+  noiseLevel: 0
 --- !u!114 &114873303166415726
 MonoBehaviour:
   m_ObjectHideFlags: 1

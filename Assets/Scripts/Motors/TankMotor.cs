@@ -90,6 +90,7 @@ public class TankMotor : MonoBehaviour
         data.noiseLevel = data.missileNoiseLevel;
     }
 
+    // Rotates towards passed in vector
     public void rotateTowards(Vector3 targetDirection)
     {
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);

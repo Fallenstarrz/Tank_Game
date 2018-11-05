@@ -100,7 +100,7 @@ public class Controller_AI_Stalker : MonoBehaviour
     void statePatrol()
     {
         // walk around randomly between waypoints
-        Vector3 targetPosition = new Vector3(GameManager.instance.waypoints[controller.currentWaypoint].position.x, transform.position.y, GameManager.instance.waypoints[controller.currentWaypoint].position.z);
+        Vector3 targetPosition = new Vector3(controller.waypoints[controller.currentWaypoint].position.x, transform.position.y, controller.waypoints[controller.currentWaypoint].position.z);
         Vector3 dirToWaypoint = targetPosition - transform.position;
         if (controller.canMove())
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Controller_AI : MonoBehaviour
 {
+    // TODO: Add a way for AI to select a player as the target, or loop through them to check all the targets
     [HideInInspector] public TankData data;
     [HideInInspector] public TankMotor motor;
     public List<Transform> waypoints;
@@ -39,7 +40,7 @@ public class Controller_AI : MonoBehaviour
 
        // Can use this script to randomly and dynamically select a personality for your AIs
 
-       personality = (personalities)Random.Range(0, 4);
+       personality = (personalities)Random.Range(0, System.Enum.GetNames(typeof(personalities)).Length);
        // Debug purposes only: Uncomment the AI type you want to test and comment out the rest including the random above. Default should be random
        // When finished testing make sure you uncomment the 
        //personality = personalities.agressive;
@@ -80,6 +81,8 @@ public class Controller_AI : MonoBehaviour
     {
         // Remove from GameManager List players
         GameManager.instance.aiUnits.Remove(this.data);
+        // TODO: TEMPORARY FIX
+        GameManager.instance.numAICurrent--;
     }
 
     public bool canMove()
@@ -136,6 +139,7 @@ public class Controller_AI : MonoBehaviour
         return true;
     }
 
+    // Return true/false if target made a noise within hearing distance
     public bool canHearTarget()
     {
         float distance = Vector3.Distance(transform.position, GameManager.instance.players[0].transform.position);
@@ -169,9 +173,10 @@ public class Controller_AI : MonoBehaviour
             motor.rotate(Vector3.up * data.rotationSpeed * Time.deltaTime);
         }
     }
+    // Sets next waypoint
     public void getNextWaypoint()
     {
-        int maxWaypoints = GameManager.instance.waypoints.Count - 1;
+        int maxWaypoints = waypoints.Count - 1;
         if (currentWaypoint < maxWaypoints)
         {
             currentWaypoint++;

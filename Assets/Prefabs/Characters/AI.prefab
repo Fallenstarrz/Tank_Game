@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 114932293590093316}
   - component: {fileID: 114179100242543234}
   - component: {fileID: 54164395975217344}
+  - component: {fileID: 114743226309624002}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -197,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1850446280934288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.06, y: 0, z: -0.03}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4239397453947440}
@@ -495,7 +496,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &114179100242543234
 MonoBehaviour:
@@ -514,7 +515,7 @@ MonoBehaviour:
   currentWaypoint: 0
   timeInFlee: 0
   timeToFlee: 5
-  closeEnough: 1
+  closeEnough: 2
   distanceToMaintain: 0
   distanceToMaintainGuard: 10
   distanceToMaintainAgressive: 3
@@ -534,6 +535,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
+--- !u!114 &114743226309624002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1850446280934288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce1be49dc75473346bbcc844ced1b304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  buffs: []
+  expiredBuffs: []
 --- !u!114 &114932293590093316
 MonoBehaviour:
   m_ObjectHideFlags: 1

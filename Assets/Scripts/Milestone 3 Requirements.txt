@@ -1,0 +1,46 @@
+﻿There are project requirements for Milestone 2:
+
+1. Tank still moves/shoots from Milestone 1. AI still exists from Milestone 2.
+	DONE
+
+2. Map generation through instantiating random tiles.
+	DONE
+
+3. Tile array exposed to designers and contains multiple (3+ tiles)
+	DONE
+
+4. Map width adjustable by designers.
+   Map height adjustable by designers.
+   Show both height and width can be changed.
+   DONE
+
+5. Map generation can be set to "Random Level" and a random level is generated.
+   Remember to show/explain why this works
+   DONE
+
+6. Map generation can be set to "Preset Seed" and a seed can be set by designers.
+   Remember to show/explain why this works
+   DONE
+
+7. Map generation can be set to "Map of the Day" and the same map will generate every day.
+   Remember to show/explain why this works.
+   DONE
+
+8. AIs and players spawn in random tiles -- they are NOT set at level load.
+   They are instantiated via code (and still linked in the GameManager)
+   DONE
+
+9. Powerups spawn and are able to be picked up by players and AI's, and respawn after a designer-set time period.
+	DONE
+
+10. Powerups effect players and AI's and can be set to expire after X seconds or be permanent stat changes.
+	DONE
+
+11. Game Manager exists, is singleton, and allows easy access to player TankData component and updated list of enemy TankData components, AND a list of all powerups spawned.
+	DONE
+
+Bug/Error Free
+Comments
+Project Organization
+Game Exceeds Minimum Requirements
+	Still need minimum requirements exceeded!!!
