@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject aiPrefab;
 
+    public GameObject characters;
+
     public List<TankData> players;
     public List<TankData> aiUnits;
 
@@ -48,12 +50,14 @@ public class GameManager : MonoBehaviour
     // Respawn AIs
     void respawnAI()
     {
+        // Maybe use a for loop instead
         // TODO: This loop is temporary
         while (numAICurrent < numAIToSpawn)
         {
             int randomNum = Random.Range(0, characterSpawns.Count-1);
             Transform locationToSpawn = characterSpawns[randomNum];
             GameObject newAI = Instantiate(aiPrefab, locationToSpawn);
+            newAI.transform.SetParent(characters.transform);
             setAiWaypoints(newAI, locationToSpawn);
             numAICurrent++;
         }
@@ -74,6 +78,7 @@ public class GameManager : MonoBehaviour
         int randomNum = Random.Range(0, characterSpawns.Count-1);
         Transform spawnLocation = characterSpawns[randomNum];
         GameObject player = Instantiate(playerPrefab, spawnLocation);
+        player.transform.SetParent(characters.transform);
         return player;
     }
 }
