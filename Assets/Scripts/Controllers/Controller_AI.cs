@@ -22,6 +22,11 @@ public class Controller_AI : MonoBehaviour
 
     public float skittishShootingAngle;
 
+    public MeshRenderer topColor;
+    public MeshRenderer leftColor;
+    public MeshRenderer rightColor;
+    public MeshRenderer bottomColor;
+
     [HideInInspector]public enum personalities
     {
         stalker,
@@ -52,18 +57,34 @@ public class Controller_AI : MonoBehaviour
             case personalities.agressive:
                 gameObject.AddComponent<Controller_AI_Agressive>();
                 distanceToMaintain = distanceToMaintainAgressive;
+                topColor.materials[0].color = Color.red;
+                leftColor.materials[0].color = Color.red;
+                rightColor.materials[0].color = Color.red;
+                bottomColor.materials[0].color = Color.red;
                 break;
             case personalities.skittish:
                 gameObject.AddComponent<Controller_AI_Skittish>();
                 distanceToMaintain = distanceToMaintainGuard;
+                topColor.materials[0].color = Color.white;
+                leftColor.materials[0].color = Color.white;
+                rightColor.materials[0].color = Color.white;
+                bottomColor.materials[0].color = Color.white;
                 break;
             case personalities.stalker:
                 gameObject.AddComponent<Controller_AI_Stalker>();
                 distanceToMaintain = distanceToMaintainStalker;
+                topColor.materials[0].color = Color.yellow;
+                leftColor.materials[0].color = Color.yellow;
+                rightColor.materials[0].color = Color.yellow;
+                bottomColor.materials[0].color = Color.yellow;
                 break;
             case personalities.guard:
                 gameObject.AddComponent<Controller_AI_Guard>();
                 distanceToMaintain = distanceToMaintainGuard;
+                topColor.materials[0].color = Color.black;
+                leftColor.materials[0].color = Color.black;
+                rightColor.materials[0].color = Color.black;
+                bottomColor.materials[0].color = Color.black;
                 break;
        }
     }

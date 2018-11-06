@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1687744965926772}
   m_LocalRotation: {x: 0.35355338, y: -0.1464466, z: 0.35355338, w: 0.8535535}
-  m_LocalPosition: {x: -8.87, y: 1.234, z: 0.056}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed5619560e3d3f47a251a91c7a2a7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickups: {fileID: 4188448648787430, guid: 885d4de0bf19a544fb46682a95429ece, type: 2}
   healthPowerup:
     buffDurationMax: 60
     buffDurationCurrent: 0
@@ -125,5 +126,17 @@ MonoBehaviour:
     buffDurationCurrent: 0
     isPerm: 0
     missileCooldownReduction: 0.25
+  healthEffect: {fileID: 1656303865241340, guid: d35d5bcbcc77a884c877ccc51200413d,
+    type: 2}
+  speedEffect: {fileID: 1878789675697680, guid: 73b35018427530b44bf1e412a535e499,
+    type: 2}
+  missileCDEffect: {fileID: 1169966875271548, guid: 32f11742dafa8374a8d5e577785f75fe,
+    type: 2}
+  offset: {x: 0, y: -1, z: 0}
+  destroyDelay: 2
+  mats: []
+  healthIcon: {fileID: 2100000, guid: 9961f507c74fe7c45aebf1522699488a, type: 2}
+  speedIcon: {fileID: 2100000, guid: ef7ec1180c120e5449b639b9ac393492, type: 2}
+  missileCDIcon: {fileID: 2100000, guid: 355028512bb8956488bdc4b204553194, type: 2}
   currentPowerupType: 0
   pickupSound: {fileID: 0}

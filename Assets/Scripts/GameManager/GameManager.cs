@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject aiPrefab;
 
-    public GameObject characters;
+    public Transform charactersHolder;
+    public Transform pickupsHolder;
 
     public List<TankData> players;
     public List<TankData> aiUnits;
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
             int randomNum = Random.Range(0, characterSpawns.Count-1);
             Transform locationToSpawn = characterSpawns[randomNum];
             GameObject newAI = Instantiate(aiPrefab, locationToSpawn);
-            newAI.transform.SetParent(characters.transform);
+            newAI.transform.SetParent(charactersHolder);
             setAiWaypoints(newAI, locationToSpawn);
             numAICurrent++;
         }
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviour
         int randomNum = Random.Range(0, characterSpawns.Count-1);
         Transform spawnLocation = characterSpawns[randomNum];
         GameObject player = Instantiate(playerPrefab, spawnLocation);
-        player.transform.SetParent(characters.transform);
+        player.transform.SetParent(charactersHolder);
         return player;
     }
 }

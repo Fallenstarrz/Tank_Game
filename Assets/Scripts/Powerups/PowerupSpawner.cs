@@ -31,6 +31,7 @@ public class PowerupSpawner : MonoBehaviour
         {
             spawnTimeCurrent = spawnTimeMax;
             spawnedPickup = Instantiate(pickupPrefab, tf.position + offset, pickupPrefab.transform.rotation);
+            spawnedPickup.transform.SetParent(GameManager.instance.pickupsHolder);
             GameManager.instance.spawnedPickups.Add(spawnedPickup);
         }
     }

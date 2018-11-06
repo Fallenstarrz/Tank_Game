@@ -43,4 +43,5 @@ Bug/Error Free
 Comments
 Project Organization
 Game Exceeds Minimum Requirements
-	Still need minimum requirements exceeded!!!
+	Particle Effects
+	New Models

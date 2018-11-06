@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+    // Powerup types
     public PowerupHealth healthPowerup;
     public PowerupSpeed speedPowerup;
     public PowerupMissileCD missileCDPowerup;
 
+    // Particle Effects
+    public GameObject healthEffect;
+    public GameObject speedEffect;
+    public GameObject missileCDEffect;
+    public Vector3 offset;
+    public float destroyDelay;
 
+    // Icons
+    public Material[] mats;
+    public Material healthIcon;
+    public Material speedIcon;
+    public Material missileCDIcon;
 
     public enum PowerupType
     {
@@ -25,11 +37,37 @@ public class Pickup : MonoBehaviour
     {
         // choose a new powerup
         currentPowerupType = (PowerupType)UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(PowerupType)).Length);
+        mats = GetComponent<MeshRenderer>().materials;
+        // Change material
+        switch (currentPowerupType)
+        {
+            case PowerupType.powerupHealth:
+            {
+                name = "Health Powerup";
+                mats[0] = healthIcon;
+                break;
+            }
+            case PowerupType.powerupSpeed:
+            {
+                name = "Speed Powerup";
+                mats[0] = speedIcon;
+                break;
+            }
+            case PowerupType.powerupMissileCDReduction:
+            {
+                name = "Missile CD Powerup";
+                mats[0] = missileCDIcon;
+                break;
+            }
+        }
+        GetComponent<MeshRenderer>().materials = mats;
     }
 
     public void OnTriggerEnter(Collider other)
     {
         // pick a powerup type
+        // add powerup to list
+        // spawn particle effect
         Controller_Powerup buffController = other.GetComponent<Controller_Powerup>();
         if (buffController != null)
         {
@@ -38,16 +76,22 @@ public class Pickup : MonoBehaviour
                 case PowerupType.powerupHealth:
                 {
                     buffController.add(healthPowerup);
+                    GameObject tempEffect = Instantiate(healthEffect, transform.position + offset, healthEffect.transform.rotation);
+                    Destroy(tempEffect, destroyDelay);
                     break;
                 }
                 case PowerupType.powerupSpeed:
                 {
                     buffController.add(speedPowerup);
+                    GameObject tempEffect = Instantiate(speedEffect, transform.position + offset, speedEffect.transform.rotation);
+                    Destroy(tempEffect, destroyDelay);
                     break;
                 }
                 case PowerupType.powerupMissileCDReduction:
                 {
                     buffController.add(missileCDPowerup);
+                    GameObject tempEffect = Instantiate(missileCDEffect, transform.position + offset, missileCDEffect.transform.rotation);
+                    Destroy(tempEffect, destroyDelay);
                     break;
                 }
             }

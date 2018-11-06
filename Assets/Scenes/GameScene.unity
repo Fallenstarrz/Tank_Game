@@ -179,6 +179,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &353766095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 353766096}
+  m_Layer: 0
+  m_Name: Pickups
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &353766096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 353766095}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &394365307
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,12 +235,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  numAIToSpawn: 5
+  numAIToSpawn: 3
   numAICurrent: 0
   playerPrefab: {fileID: 1765270513112866, guid: 09afc8e7ff9e91e419a50635bbe94ccc,
     type: 2}
   aiPrefab: {fileID: 1850446280934288, guid: b15a0c8d740d7a44587031147354b673, type: 2}
-  characters: {fileID: 2137874239}
+  charactersHolder: {fileID: 2137874240}
+  pickupsHolder: {fileID: 353766096}
   players: []
   aiUnits: []
   characterSpawns: []
@@ -225,7 +254,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 394365307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6445379, y: -0.001718998, z: 2.5392826}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -271,8 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b36d91f8292a2d4d8a59643125a81bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 3
-  cols: 3
+  rows: 2
+  cols: 2
   roomPrefabs:
   - {fileID: 1549487185307056, guid: 0db8fd802c0f6ad45a9546527defecb3, type: 2}
   - {fileID: 1877778173373950, guid: 032d1ea2400412d4e9f4a0dd88de32b2, type: 2}
@@ -301,7 +330,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2137874239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.539825, y: 5.8927, z: -5.129473}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

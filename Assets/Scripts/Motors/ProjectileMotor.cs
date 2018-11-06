@@ -7,6 +7,9 @@ public class ProjectileMotor : MonoBehaviour
     [HideInInspector] public ProjectileData data;
     [HideInInspector] public Rigidbody rb;
 
+    public GameObject explosionEffect;
+    public float deleteDelay;
+
     // Use this for initialization
     private void Start()
     {
@@ -27,17 +30,27 @@ public class ProjectileMotor : MonoBehaviour
             GameManager.instance.aiUnits.Contains(other.gameObject.GetComponent<TankData>()))
         {
             // if it is a player or an enemy tank then reduce their health
-            // Debug.Log("Enemy Tank Hit"); // Used in testing successful collisions with other tanks
             other.gameObject.GetComponent<TankHealth>().reduceCurrentHealth(data.projectileDamage);
         }
+        // Create Particle Effect
+        // Destroy Particle Effect After period of time
+        spawnParticleEffect();
         // destroy the projectile
-        // Debug.Log("Collision Detected!"); // Used in testing successful collisions
         Destroy(this.gameObject);
+    }
+
+    public void spawnParticleEffect()
+    {
+        if (explosionEffect != null)
+        {
+            GameObject tempEffect = Instantiate(explosionEffect, transform.position, transform.rotation);
+            Destroy(tempEffect, deleteDelay);
+        }
     }
 
     // Propels a projectile forward
     public void pushForward()
     {
-            rb.AddForce(transform.up * data.projectileSpeed);
+            rb.AddForce(transform.forward * data.projectileSpeed);
     }
 }
