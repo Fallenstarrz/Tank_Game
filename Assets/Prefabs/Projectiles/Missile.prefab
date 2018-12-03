@@ -113,9 +113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbf225071cb2974fb9a91c340155524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 300
+  projectileSpeed: 40
   projectileDamage: 10
   projectileLifespan: 3
+  hitSound: {fileID: 8300000, guid: 7bbdd6fe63a878b408e0738f30a2414a, type: 3}
   shooterName: 
 --- !u!114 &114286069152957440
 MonoBehaviour:
