@@ -11,13 +11,14 @@ public class UI_Health : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    data = GetComponent<TankData>();
+	    data = GetComponentInParent<TankData>();
 	    healthBar = GetComponent<Slider>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+        // set UI healthbar value to current/max health. This gives us a % to fill our bar with
         healthBar.value = data.healthCurrent / data.healthMax;
     }
 }

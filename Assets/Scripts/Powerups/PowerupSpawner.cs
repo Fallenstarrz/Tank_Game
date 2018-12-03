@@ -18,8 +18,10 @@ public class PowerupSpawner : MonoBehaviour
         tf = GetComponent<Transform>();
 	}
 
+    // function to respawn pickups
     public void respawnPickups()
     {
+        // if there is no powerup reduce the cooldown
         if (spawnedPickup == null)
         {
             if (spawnTimeCurrent >= 0)
@@ -27,6 +29,7 @@ public class PowerupSpawner : MonoBehaviour
                 spawnTimeCurrent -= Time.deltaTime;
             }
         }
+        // if the spawn time is less than or equal to 0, spawn a pickup
         if (spawnTimeCurrent <= 0)
         {
             spawnTimeCurrent = spawnTimeMax;

@@ -13,8 +13,6 @@ public class Controller_Player : MonoBehaviour
         motor = GetComponent<TankMotor>();
 
         GameManager.instance.players.Add(this.data);
-
-        // Set mesh color to purple
     }
 
 
@@ -58,6 +56,11 @@ public class Controller_Player : MonoBehaviour
 
     private void OnDestroy()
     {
+        // Play death sound
+        if (data.death != null)
+        {
+            AudioSource.PlayClipAtPoint(data.death, transform.position);
+        }
         // Add to GameManager List players
         GameManager.instance.players.Remove(this.data);
     }

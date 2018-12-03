@@ -7,6 +7,7 @@ public class Powerup
     public float buffDurationCurrent;
     public bool isPerm;
 
+    // virtual functions
     public virtual void OnActivated(TankData data)
     {
 

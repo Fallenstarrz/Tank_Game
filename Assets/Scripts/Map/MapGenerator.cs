@@ -25,6 +25,20 @@ public class MapGenerator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GameManager.instance.mapMaker = this;
+        if (GameManager.instance.mapMode == 0)
+        {
+            mapTypeSelection = mapType.mapOfTheDay;
+        }
+        else if (GameManager.instance.mapMode == 1)
+        {
+            mapTypeSelection = mapType.randomMap;
+        }
+        else
+        {
+            mapTypeSelection = mapType.seededMap;
+            seedValue = GameManager.instance.seedNum;
+        }
         generateMap();
     }
 

@@ -21,11 +21,22 @@ public class GameManager : MonoBehaviour
     public List<Transform> characterSpawns;
     public List<GameObject> spawnedPickups;
 
+    public MapGenerator mapMaker;
+    public UI_LoadSettings settingsLoader;
+
+    // Settings
+    public float sfxVol;
+    public float musicVol;
+    public bool isMultiplayer;
+    public int seedNum;
+    public int mapMode;
+    public int highScore;
+
     // Created temporarily
     public GameObject player1;
 
     // Use this for initialization
-    void Awake ()
+    void Awake()
     {
         if (instance == null)
         {
@@ -36,17 +47,34 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if (settingsLoader != null)
+        {
+            settingsLoader.loadSettings();
+        }
+        loadSettings();
     }
 
     // Update is called once per frame
     void Update ()
     {
-        respawnAI();
-        if (player1 == null)
+        if (!characterSpawns.Count.Equals(0))
         {
-            player1 = respawnPlayer();
+            respawnAI();
+        }
+        if (!characterSpawns.Count.Equals(0))
+        {
+            if (player1 == null)
+            {
+                player1 = respawnPlayer();
+            }
         }
 	}
+
+    // Load settings from playerPrefs
+    public void loadSettings()
+    {
+
+    }
 
     // Respawn AIs
     void respawnAI()

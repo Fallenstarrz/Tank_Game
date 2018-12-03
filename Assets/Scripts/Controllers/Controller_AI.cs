@@ -100,6 +100,11 @@ public class Controller_AI : MonoBehaviour
 
     private void OnDestroy()
     {
+        // Play death sound
+        if (data.death != null)
+        {
+            AudioSource.PlayClipAtPoint(data.death, transform.position);
+        }
         // Remove from GameManager List players
         GameManager.instance.aiUnits.Remove(this.data);
         // TODO: TEMPORARY FIX

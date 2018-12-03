@@ -24,7 +24,6 @@ public class TankData : MonoBehaviour
     public float bulletCooldownCurrent;
     public float bulletNoiseLevel;
 
-
     // Missile Variables
     public float missileCooldownMax;
     public float missileCooldownCurrent;
@@ -36,4 +35,10 @@ public class TankData : MonoBehaviour
     public float hearingDistance;
     public float wallDetectDistance;
     public float noiseLevel;
+
+    // Sound Variables
+    public AudioSource soundSource;
+    public AudioClip bulletFire;
+    public AudioClip missileFire;
+    public AudioClip death;
 }

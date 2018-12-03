@@ -74,6 +74,12 @@ public class TankMotor : MonoBehaviour
 
             // Set noiseLevel
             data.noiseLevel = data.bulletNoiseLevel;
+            // Play sound
+            if (data.bulletFire != null)
+            {
+                data.soundSource.clip = data.bulletFire;
+                data.soundSource.Play();
+            }
         }
     }
 
@@ -86,8 +92,14 @@ public class TankMotor : MonoBehaviour
             data.missileCooldownCurrent = data.missileCooldownMax;
             var missile = Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
             missile.GetComponent<ProjectileData>().shooterName = this.data.myName;
+            // Play sound
+            if (data.missileFire != null)
+            {
+                data.soundSource.clip = data.missileFire;
+                data.soundSource.Play();
+            }
+            data.noiseLevel = data.missileNoiseLevel;
         }
-        data.noiseLevel = data.missileNoiseLevel;
     }
 
     // Rotates towards passed in vector

@@ -18,6 +18,12 @@ public class ProjectileMotor : MonoBehaviour
 
         // Destroy this projectile after X amount of time from spawn
         Destroy(this.gameObject, data.projectileLifespan);
+        //pushForward(); // Used if using rb to propel projectiles
+    }
+
+    // remove update if using rb to propel projectiles
+    public void Update()
+    {
         pushForward();
     }
 
@@ -35,6 +41,10 @@ public class ProjectileMotor : MonoBehaviour
         // Create Particle Effect
         // Destroy Particle Effect After period of time
         spawnParticleEffect();
+        if (data.hitSound != null)
+        {
+            AudioSource.PlayClipAtPoint(data.hitSound, transform.position);
+        }
         // destroy the projectile
         Destroy(this.gameObject);
     }
@@ -51,6 +61,7 @@ public class ProjectileMotor : MonoBehaviour
     // Propels a projectile forward
     public void pushForward()
     {
-            rb.AddForce(transform.forward * data.projectileSpeed);
+        //rb.AddForce(transform.forward * data.projectileSpeed); // used if using rb to propel projectiles
+        transform.Translate(Vector3.forward * data.projectileSpeed * Time.deltaTime);
     }
 }

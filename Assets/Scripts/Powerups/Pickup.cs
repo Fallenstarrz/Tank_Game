@@ -30,7 +30,6 @@ public class Pickup : MonoBehaviour
     }
     public PowerupType currentPowerupType;
 
-    // TODO: Choose a soundclip
     public AudioClip pickupSound;
 
     public void Start()
