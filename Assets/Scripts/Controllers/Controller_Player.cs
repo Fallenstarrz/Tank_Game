@@ -23,7 +23,6 @@ public class Controller_Player : MonoBehaviour
         GameManager.instance.players.Add(this.data);
     }
 
-
 	void Update ()
     {
         switch (selectedController)
