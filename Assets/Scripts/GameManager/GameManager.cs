@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int score;
     public int numAIToSpawn;
     public int numAICurrent;
 
@@ -23,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public MapGenerator mapMaker;
     public UI_LoadSettings settingsLoader;
+
+    public int scorePerKill;
 
     // Settings
     public float sfxVol;
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
         {
             settingsLoader.loadSettings();
         }
-        loadSettings();
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
 
     // Update is called once per frame
@@ -68,13 +69,15 @@ public class GameManager : MonoBehaviour
                 player1 = respawnPlayer();
             }
         }
+        foreach (TankData person in players)
+        {
+            if (person.score > highScore)
+            {
+                PlayerPrefs.SetInt("HighScore", person.score);
+                highScore = person.score; // Don't forget to save this when both players are out of lives
+            }
+        }
 	}
-
-    // Load settings from playerPrefs
-    public void loadSettings()
-    {
-
-    }
 
     // Respawn AIs
     void respawnAI()
@@ -109,5 +112,11 @@ public class GameManager : MonoBehaviour
         GameObject player = Instantiate(playerPrefab, spawnLocation);
         player.transform.SetParent(charactersHolder);
         return player;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.SetInt("HighScore", highScore);
+        PlayerPrefs.Save();
     }
 }

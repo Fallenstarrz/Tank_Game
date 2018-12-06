@@ -70,7 +70,7 @@ public class TankMotor : MonoBehaviour
             // create a bullet to be fired and save it for use in a moment
             var bullet = Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
             // use the variable bullet we created a moment ago to get the name of the person who shot it
-            bullet.GetComponent<ProjectileData>().shooterName = this.data.myName;
+            bullet.GetComponent<ProjectileData>().shooterName = this.gameObject.GetComponent<TankData>();
 
             // Set noiseLevel
             data.noiseLevel = data.bulletNoiseLevel;
@@ -91,7 +91,7 @@ public class TankMotor : MonoBehaviour
         {
             data.missileCooldownCurrent = data.missileCooldownMax;
             var missile = Instantiate(missilePrefab, firingPoint.position, firingPoint.rotation);
-            missile.GetComponent<ProjectileData>().shooterName = this.data.myName;
+            missile.GetComponent<ProjectileData>().shooterName = this.gameObject.GetComponent<TankData>();
             // Play sound
             if (data.missileFire != null)
             {

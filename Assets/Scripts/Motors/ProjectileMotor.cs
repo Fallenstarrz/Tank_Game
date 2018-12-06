@@ -35,8 +35,9 @@ public class ProjectileMotor : MonoBehaviour
         if (GameManager.instance.players.Contains(other.gameObject.GetComponent<TankData>()) ||
             GameManager.instance.aiUnits.Contains(other.gameObject.GetComponent<TankData>()))
         {
+            TankHealth targetHit = other.gameObject.GetComponent<TankHealth>();
             // if it is a player or an enemy tank then reduce their health
-            other.gameObject.GetComponent<TankHealth>().reduceCurrentHealth(data.projectileDamage);
+            targetHit.reduceCurrentHealth(data.projectileDamage, data.shooterName);
         }
         // Create Particle Effect
         // Destroy Particle Effect After period of time

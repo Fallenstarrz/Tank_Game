@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dfb835244f04c40a17dd70a80058c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
   numAIToSpawn: 3
   numAICurrent: 0
   playerPrefab: {fileID: 1765270513112866, guid: 09afc8e7ff9e91e419a50635bbe94ccc,
@@ -63,4 +62,12 @@ MonoBehaviour:
   aiUnits: []
   characterSpawns: []
   spawnedPickups: []
+  mapMaker: {fileID: 114616461377986134, guid: 105538ac871ea014f891b7f8e6ddbfc1, type: 2}
+  settingsLoader: {fileID: 0}
+  sfxVol: 0
+  musicVol: 0
+  isMultiplayer: 0
+  seedNum: 0
+  mapMode: 0
+  highScore: 0
   player1: {fileID: 0}

@@ -32,6 +32,11 @@ public class UI_LoadSettings : MonoBehaviour
             isMultiEnabled.isOn = false;
             GameManager.instance.isMultiplayer = false;
         }
+        else
+        {
+            isMultiEnabled.isOn = true;
+            GameManager.instance.isMultiplayer = true;
+        }
 
         // Seed Number Settings
         number = PlayerPrefs.GetInt("seedNumber", number);

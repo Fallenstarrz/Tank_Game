@@ -13,17 +13,18 @@ public class TankHealth : MonoBehaviour
 	}
 
     // reduce current health by the damage of the thing that hit it
-    public void reduceCurrentHealth(float damage)
+    public void reduceCurrentHealth(float damage, TankData attacker)
     {
         data.healthCurrent -= damage;
-        checkDeath();
+        checkDeath(attacker);
     }
 
     // check if player has died
-    public void checkDeath()
+    public void checkDeath(TankData damageDealer)
     {
         if (data.healthCurrent <= 0)
         {
+            damageDealer.score += GameManager.instance.scorePerKill;
             Destroy(this.gameObject);
         }
     }

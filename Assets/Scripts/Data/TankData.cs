@@ -8,6 +8,10 @@ public class TankData : MonoBehaviour
     // TODO: Need to make a way for the player to set their tanks name and randomly generate names for AI enemies
     public string myName = "No Name";
 
+    // Milestone 4 Variables
+    public int score;
+    public int lives;
+
     // Tank Variables
     public float movementSpeed;
     public float backwardMovementSpeed;

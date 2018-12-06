@@ -14,5 +14,5 @@ public class ProjectileData : MonoBehaviour
 
     // This variable holds the name of the person who shot it
     // TODO: Currently no way to set the name of the tank, so we don't use it quite yet, but we do track it
-    public string shooterName;
+    public TankData shooterName;
 }
