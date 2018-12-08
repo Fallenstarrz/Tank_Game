@@ -105,7 +105,7 @@ public class Controller_AI : MonoBehaviour
         // Play death sound
         if (data.death != null)
         {
-            AudioSource.PlayClipAtPoint(data.death, transform.position);
+            AudioSource.PlayClipAtPoint(data.death, transform.position, (GameManager.instance.sfxVol + 80) / 80);
         }
         // Remove from GameManager List players
         GameManager.instance.aiUnits.Remove(this.data);

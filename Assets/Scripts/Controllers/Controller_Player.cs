@@ -144,7 +144,7 @@ public class Controller_Player : MonoBehaviour
         // Play death sound
         if (data.death != null)
         {
-            AudioSource.PlayClipAtPoint(data.death, transform.position);
+            AudioSource.PlayClipAtPoint(data.death, transform.position, (GameManager.instance.sfxVol + 80)/80);
         }
         // update GM with data to save
         updateGameManager(data.myName);

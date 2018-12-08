@@ -44,7 +44,7 @@ public class ProjectileMotor : MonoBehaviour
         spawnParticleEffect();
         if (data.hitSound != null)
         {
-            AudioSource.PlayClipAtPoint(data.hitSound, transform.position);
+            AudioSource.PlayClipAtPoint(data.hitSound, transform.position, (GameManager.instance.sfxVol + 80) / 80);
         }
         // destroy the projectile
         Destroy(this.gameObject);
