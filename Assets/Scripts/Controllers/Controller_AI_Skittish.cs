@@ -45,52 +45,69 @@ public class Controller_AI_Skittish : MonoBehaviour
 
     void stateChase()
     {
-        // go to last known player position if we don't see target
-        if (!controller.canSeeTarget() && !controller.canHearTarget())
+        if (controller.targetPlayer != null)
         {
-            if (Vector3.Distance(transform.position, lastKnownPosition) >= controller.closeEnough)
+            // go to last known player position if we don't see target
+            foreach (TankData targetable in GameManager.instance.players)
             {
-                controller.motor.rotateTowards(lastKnownPosition - transform.position);
-                controller.obstacleAvoidanceMove();
-            }
-            else
-            {
-                currentState = states.patrol;
+                if (controller.canSeeTarget(targetable) || controller.canHearTarget(targetable))
+                {
+                    if (Vector3.Distance(transform.position, lastKnownPosition) >= controller.closeEnough)
+                    {
+                        controller.motor.rotateTowards(lastKnownPosition - transform.position);
+                        controller.obstacleAvoidanceMove();
+                    }
+                    else
+                    {
+                        currentState = states.patrol;
+                    }
+                }
+                // if we see player shoot at him and go back into flee state
+                else
+                {
+                    controller.motor.rotateTowards(controller.targetPlayer.transform.position - transform.position);
+                    if (Vector3.Angle(transform.position, controller.targetPlayer.transform.position) < controller.skittishShootingAngle)
+                    {
+                        controller.motor.ShootMissile();
+                        lastKnownPosition = controller.targetPlayer.transform.position;
+                        currentState = states.flee;
+                    }
+                }
             }
         }
-        // if we see player shoot at him and go back into flee state
         else
         {
-            controller.motor.rotateTowards(GameManager.instance.players[0].transform.position - transform.position);
-            if (Vector3.Angle(transform.position, GameManager.instance.players[0].transform.position) < controller.skittishShootingAngle)
-            {
-                controller.motor.ShootMissile();
-                lastKnownPosition = GameManager.instance.players[0].transform.position;
-                currentState = states.flee;
-            }
+            currentState = states.patrol;
         }
     }
 
     void stateFlee()
     {
-        if (controller.timeInFlee <= controller.timeToFlee)
+        if (controller.targetPlayer != null)
         {
-            // run away from player
-            Vector3 directionToFlee = -(GameManager.instance.players[0].transform.position - transform.position);
-            if (controller.canMove())
+            if (controller.timeInFlee <= controller.timeToFlee)
             {
+                // run away from player
+                Vector3 directionToFlee = -(controller.targetPlayer.transform.position - transform.position);
+                if (controller.canMove())
+                {
+                    controller.obstacleAvoidanceMove();
+                    controller.motor.rotateTowards(directionToFlee);
+                }
                 controller.obstacleAvoidanceMove();
-                controller.motor.rotateTowards(directionToFlee);
+                // increase the time we have been fleeing
+                controller.timeInFlee += Time.deltaTime;
             }
-            controller.obstacleAvoidanceMove();
-            // increase the time we have been fleeing
-            controller.timeInFlee += Time.deltaTime;
+            else
+            {
+                controller.timeInFlee = 0;
+                // then go back to patrol state
+                currentState = states.chase;
+            }
         }
         else
         {
-            controller.timeInFlee = 0;
-            // then go back to patrol state
-            currentState = states.chase;
+            currentState = states.patrol;
         }
     }
 
@@ -99,12 +116,16 @@ public class Controller_AI_Skittish : MonoBehaviour
         // he is a scared AI, so he just kind stays in 1 spot and rotates. We didn't want all the AIs to patrol the same way.
         controller.motor.rotate(Vector3.up * controller.data.rotationSpeed * Time.deltaTime);
         // when we see or hear a noise remember the location of the noise and run away!
-        if (controller.canSeeTarget() || controller.canHearTarget())
+        foreach (TankData targetable in GameManager.instance.players)
         {
-            // remember location of the noise
-            lastKnownPosition = GameManager.instance.players[0].transform.position;
-            // go into flee state
-            currentState = states.flee;
+            if (controller.canSeeTarget(targetable) || controller.canHearTarget(targetable))
+            {
+                controller.targetPlayer = controller.aquireTarget();
+                // remember location of the noise
+                lastKnownPosition = controller.targetPlayer.transform.position;
+                // go into flee state
+                currentState = states.flee;
+            }
         }
     }
 }

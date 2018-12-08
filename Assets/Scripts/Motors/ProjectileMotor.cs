@@ -50,6 +50,7 @@ public class ProjectileMotor : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    // spawns particle effects and destroys them after a delay
     public void spawnParticleEffect()
     {
         if (explosionEffect != null)

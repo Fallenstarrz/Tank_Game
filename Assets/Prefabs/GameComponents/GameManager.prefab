@@ -64,10 +64,19 @@ MonoBehaviour:
   spawnedPickups: []
   mapMaker: {fileID: 114616461377986134, guid: 105538ac871ea014f891b7f8e6ddbfc1, type: 2}
   settingsLoader: {fileID: 0}
+  scorePerKill: 50
   sfxVol: 0
   musicVol: 0
-  isMultiplayer: 0
+  isMultiplayer: 1
   seedNum: 0
   mapMode: 0
   highScore: 0
   player1: {fileID: 0}
+  player2: {fileID: 0}
+  player1Lives: 3
+  player2Lives: 3
+  playerLivesMax: 3
+  player1Score: 0
+  player2Score: 0
+  player1Controller: 0
+  player2Controller: 0

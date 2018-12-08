@@ -43,29 +43,39 @@ public class Controller_AI_Agressive : MonoBehaviour
 
     void stateChase()
     {
-        // if player is within X range, stop moving, but don't ever stop shooting at the player
-        Vector3 targetLocation = GameManager.instance.players[0].transform.position - transform.position;
-
-        if (Vector3.Distance(GameManager.instance.players[0].transform.position, transform.position) >= controller.distanceToMaintain)
+        if (controller.targetPlayer != null)
         {
-            if (controller.canMove())
+            // if player is within X range, stop moving, but don't ever stop shooting at the player
+            Vector3 targetLocation = controller.targetPlayer.transform.position - transform.position;
+
+            if (Vector3.Distance(controller.targetPlayer.transform.position, transform.position) >= controller.distanceToMaintain)
             {
+                if (controller.canMove())
+                {
+                    controller.obstacleAvoidanceMove();
+                    controller.motor.rotateTowards(targetLocation);
+                }
                 controller.obstacleAvoidanceMove();
-                controller.motor.rotateTowards(targetLocation);
+                controller.motor.ShootMissile();
             }
-            controller.obstacleAvoidanceMove();
-            controller.motor.ShootMissile();
+            else
+            {
+                controller.motor.rotateTowards(targetLocation);
+                controller.motor.ShootMissile();
+            }
+            if (controller.data.healthCurrent <= (controller.data.healthMax / 2)) // TODO: Probably change to a percentage threshhold, but we will leave at 1/2 for now
+            {
+                currentState = states.flee;
+            }
+            foreach (TankData targetable in GameManager.instance.players)
+            {
+                if (!controller.canSeeTarget(targetable) && !controller.canHearTarget(targetable))
+                {
+                    currentState = states.patrol;
+                }
+            }
         }
         else
-        {
-            controller.motor.rotateTowards(targetLocation);
-            controller.motor.ShootMissile();
-        }
-        if (controller.data.healthCurrent <= (controller.data.healthMax/2)) // TODO: Probably change to a percentage threshhold, but we will leave at 1/2 for now
-        {
-            currentState = states.flee;
-        }
-        if (!controller.canHearTarget() && !controller.canSeeTarget())
         {
             currentState = states.patrol;
         }
@@ -73,23 +83,30 @@ public class Controller_AI_Agressive : MonoBehaviour
 
     void stateFlee()
     {
-        if (controller.timeInFlee <= controller.timeToFlee)
+        if (controller.targetPlayer != null)
         {
-            // run away from player
-            Vector3 directionToFlee = -(GameManager.instance.players[0].transform.position - transform.position);
-            if (controller.canMove())
+            if (controller.timeInFlee <= controller.timeToFlee)
             {
+                // run away from player
+                Vector3 directionToFlee = -(controller.targetPlayer.transform.position - transform.position);
+                if (controller.canMove())
+                {
+                    controller.obstacleAvoidanceMove();
+                    controller.motor.rotateTowards(directionToFlee);
+                }
                 controller.obstacleAvoidanceMove();
-                controller.motor.rotateTowards(directionToFlee);
+                // increase the time we have been fleeing
+                controller.timeInFlee += Time.deltaTime;
             }
-            controller.obstacleAvoidanceMove();
-            // increase the time we have been fleeing
-            controller.timeInFlee += Time.deltaTime;
+            else
+            {
+                controller.timeInFlee = 0;
+                // then go back to patrol state
+                currentState = states.patrol;
+            }
         }
         else
         {
-            controller.timeInFlee = 0;
-            // then go back to patrol state
             currentState = states.patrol;
         }
     }
@@ -110,10 +127,14 @@ public class Controller_AI_Agressive : MonoBehaviour
         {
             controller.getNextWaypoint();
         }
-        if (controller.canSeeTarget() || controller.canHearTarget())
+        foreach (TankData targetable in GameManager.instance.players)
         {
-            // go into chase state
-            currentState = states.chase;
+            if (controller.canSeeTarget(targetable) || controller.canHearTarget(targetable))
+            {
+                controller.targetPlayer = controller.aquireTarget();
+                // go into chase state
+                currentState = states.chase;
+            }
         }
     }
 }

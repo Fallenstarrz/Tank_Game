@@ -10,6 +10,8 @@ public class Controller_AI : MonoBehaviour
     public List<Transform> waypoints;
     public int currentWaypoint = 0;
 
+    public TankData targetPlayer;
+
     public float timeInFlee;
     public float timeToFlee;
 
@@ -133,10 +135,10 @@ public class Controller_AI : MonoBehaviour
         return false;
     }
 
-    public bool canSeeTarget()
+    public bool canSeeTarget(TankData target)
     {
         // Create a vector to target by getting the target position and subtracting our current position
-        Vector3 vectorToTarget = (GameManager.instance.players[0].transform.position - transform.position);
+        Vector3 vectorToTarget = (target.transform.position - transform.position);
         // Create an angle to target by Vector3.Angle (vectorToTarget, transform.forward)
         float Angle = Vector3.Angle(vectorToTarget, transform.forward);
 
@@ -155,7 +157,7 @@ public class Controller_AI : MonoBehaviour
         }
 
         // if target hit with raycast != target player, return false
-        Collider targetCollider = GameManager.instance.players[0].GetComponent<Collider>();
+        Collider targetCollider = target.GetComponent<Collider>();
         if (targetCollider != hitInfo.collider)
         {
             return false;
@@ -166,10 +168,10 @@ public class Controller_AI : MonoBehaviour
     }
 
     // Return true/false if target made a noise within hearing distance
-    public bool canHearTarget()
+    public bool canHearTarget(TankData target)
     {
-        float distance = Vector3.Distance(transform.position, GameManager.instance.players[0].transform.position);
-        if (distance >= (GameManager.instance.players[0].noiseLevel + data.hearingDistance))
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+        if (distance >= (target.noiseLevel + data.hearingDistance))
         {
             return false;
         }
@@ -177,6 +179,19 @@ public class Controller_AI : MonoBehaviour
         {
             return true;
         }
+    }
+
+    public TankData aquireTarget()
+    {
+        if (canHearTarget(GameManager.instance.players[0]) || canSeeTarget(GameManager.instance.players[0]))
+        {
+            return GameManager.instance.players[0];
+        }
+        if (canHearTarget(GameManager.instance.players[1]) || canSeeTarget(GameManager.instance.players[1]))
+        {
+            return GameManager.instance.players[1];
+        }
+        return null;
     }
 
     public void obstacleAvoidanceMove()

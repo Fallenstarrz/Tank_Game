@@ -7,6 +7,7 @@ public class Controller_Player : MonoBehaviour
     [HideInInspector] private TankData data;
     [HideInInspector] private TankMotor motor;
 
+    // enum to control the type of controller for each player
     public enum controlType
     {
         wasd,
@@ -39,6 +40,7 @@ public class Controller_Player : MonoBehaviour
         }
     }
 
+    // when using wasd use this control scheme
     private void wasdControls()
     {
         if (Input.GetButton("Shoot1"))
@@ -77,6 +79,7 @@ public class Controller_Player : MonoBehaviour
         }
     }
 
+    // when using arrows use this control scheme
     private void arrowControls()
     {
         if (Input.GetButton("Shoot1P2"))
@@ -115,6 +118,7 @@ public class Controller_Player : MonoBehaviour
         }
     }
 
+    // When using controller, use this control scheme
     private void controllerControls()
     {
         if (Input.GetButton("CShoot1"))
@@ -142,7 +146,22 @@ public class Controller_Player : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(data.death, transform.position);
         }
+        // update GM with data to save
+        updateGameManager(data.myName);
         // Add to GameManager List players
         GameManager.instance.players.Remove(this.data);
+    }
+
+    // update GM with data to save
+    void updateGameManager(string playerName)
+    {
+        if (data.myName == "Player1")
+        {
+            GameManager.instance.player1Score = data.score;
+        }
+        else if (data.myName == "Player2")
+        {
+            GameManager.instance.player2Score = data.score;
+        }
     }
 }

@@ -15,6 +15,8 @@ public class UI_LoadSettings : MonoBehaviour
     public InputField seedNumber;
     public int number;
     public int mapType;
+    public Dropdown p1Controller;
+    public Dropdown p2Controller;
 
     public void loadSettings()
     {
@@ -64,5 +66,13 @@ public class UI_LoadSettings : MonoBehaviour
             seededMap.isOn = true;
         }
         GameManager.instance.mapMode = PlayerPrefs.GetInt("mapMode", 0);
+
+        // Save PlayerController 1
+        GameManager.instance.player1Controller = PlayerPrefs.GetInt("Player1Controller", 0);
+        p1Controller.value = PlayerPrefs.GetInt("Player1Controller", 0);
+
+        // Save PlayerController 2
+        GameManager.instance.player2Controller = PlayerPrefs.GetInt("Player2Controller", 1);
+        p2Controller.value = PlayerPrefs.GetInt("Player2Controller", 1);
     }
 }

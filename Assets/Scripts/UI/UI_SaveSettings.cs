@@ -14,6 +14,8 @@ public class UI_SaveSettings : MonoBehaviour
     public Toggle isMultiEnabled;
     public Text seedNumber;
     public int number;
+    public Dropdown p1Controller;
+    public Dropdown p2Controller;
 
     public void saveSettings()
     {
@@ -57,5 +59,13 @@ public class UI_SaveSettings : MonoBehaviour
             GameManager.instance.mapMode = 2;
             PlayerPrefs.SetInt("mapMode", 2);
         }
+
+        // Save PlayerController 1
+        GameManager.instance.player1Controller = p1Controller.value;
+        PlayerPrefs.SetInt("Player1Controller", p1Controller.value);
+
+        // Save PlayerController 2
+        GameManager.instance.player2Controller = p2Controller.value;
+        PlayerPrefs.SetInt("Player2Controller", p2Controller.value);
     }
 }

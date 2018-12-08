@@ -13,6 +13,7 @@ public class UI_HighscoreDisplay : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        // set the location of the high score depending on the multiplayer mode
         highScoreLoc = GetComponent<RectTransform>();
         if (GameManager.instance.isMultiplayer == true)
         {
@@ -25,6 +26,7 @@ public class UI_HighscoreDisplay : MonoBehaviour
         highScoreNum.text = GameManager.instance.highScore.ToString();
 	}
 	
+    // display high score
 	// Update is called once per frame
 	void Update ()
     {

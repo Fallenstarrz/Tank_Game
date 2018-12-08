@@ -45,54 +45,70 @@ public class Controller_AI_Stalker : MonoBehaviour
 
     void stateChase()
     {
-        // go to players backward direction * X units (distance to maintain), this will make us face behind the player
-        Vector3 targetPosition = (-(controller.distanceToMaintain * GameManager.instance.players[0].transform.forward));
-        // If we are not far enough from the player
-        if (Vector3.Distance(transform.position, GameManager.instance.players[0].transform.position) <= controller.distanceToMaintain)
+        if (controller.targetPlayer != null)
         {
-            controller.obstacleAvoidanceMove();
-            controller.motor.rotateTowards(targetPosition);
+            // go to players backward direction * X units (distance to maintain), this will make us face behind the player
+            Vector3 targetPosition = (-(controller.distanceToMaintain * controller.targetPlayer.transform.forward));
+            // If we are not far enough from the player
+            if (Vector3.Distance(transform.position, controller.targetPlayer.transform.position) <= controller.distanceToMaintain)
+            {
+                controller.obstacleAvoidanceMove();
+                controller.motor.rotateTowards(targetPosition);
+            }
+            // when we get far enough behind the player, shoot at the player
+            else
+            {
+                controller.motor.rotateTowards(controller.targetPlayer.transform.position - transform.position);
+                controller.motor.ShootMissile();
+            }
+            // if we get hit
+            // go into flee state
+            if (controller.data.healthCurrent < healthLastKnown)
+            {
+                healthLastKnown = controller.data.healthCurrent;
+                currentState = states.flee;
+            }
+            foreach (TankData targetable in GameManager.instance.players)
+            {
+                // if can no longer see or hear player, resume patrolling
+                if (!controller.canHearTarget(targetable) && !controller.canSeeTarget(targetable))
+                {
+                    currentState = states.patrol;
+                }
+            }
         }
-        // when we get far enough behind the player, shoot at the player
         else
-        {
-            controller.motor.rotateTowards(GameManager.instance.players[0].transform.position - transform.position);
-            controller.motor.ShootMissile();
-        }
-        // if we get hit
-        // go into flee state
-        if (controller.data.healthCurrent < healthLastKnown)
-        {
-            healthLastKnown = controller.data.healthCurrent;
-            currentState = states.flee;
-        }
-        // if can no longer see or hear player, resume patrolling
-        if (!controller.canHearTarget() && !controller.canSeeTarget())
         {
             currentState = states.patrol;
         }
-
     }
 
     void stateFlee()
     {
-        if (controller.timeInFlee <= controller.timeToFlee)
+        if (controller.targetPlayer != null)
         {
-            // run away from player
-            Vector3 directionToFlee = -(GameManager.instance.players[0].transform.position - transform.position);
-            if (controller.canMove())
+            if (controller.timeInFlee <= controller.timeToFlee)
             {
+                // run away from player
+                Vector3 directionToFlee = -(controller.targetPlayer.transform.position - transform.position);
+                if (controller.canMove())
+                {
+                    controller.obstacleAvoidanceMove();
+                    controller.motor.rotateTowards(directionToFlee);
+                }
                 controller.obstacleAvoidanceMove();
-                controller.motor.rotateTowards(directionToFlee);
+                // increase the time we have been fleeing
+                controller.timeInFlee += Time.deltaTime;
             }
-            controller.obstacleAvoidanceMove();
-            // increase the time we have been fleeing
-            controller.timeInFlee += Time.deltaTime;
+            else
+            {
+                controller.timeInFlee = 0;
+                // then go back to patrol state
+                currentState = states.patrol;
+            }
         }
         else
         {
-            controller.timeInFlee = 0;
-            // then go back to patrol state
             currentState = states.patrol;
         }
     }
@@ -113,10 +129,14 @@ public class Controller_AI_Stalker : MonoBehaviour
         {
             controller.getNextWaypoint();
         }
-        if (controller.canSeeTarget() || controller.canHearTarget())
+        foreach (TankData targetable in GameManager.instance.players)
         {
-            // go into chase state
-            currentState = states.chase;
+            if (controller.canSeeTarget(targetable) || controller.canHearTarget(targetable))
+            {
+                controller.targetPlayer = controller.aquireTarget();
+                // go into chase state
+                currentState = states.chase;
+            }
         }
     }
 }

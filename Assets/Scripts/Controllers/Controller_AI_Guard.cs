@@ -43,21 +43,31 @@ public class Controller_AI_Guard : MonoBehaviour
 
     void stateChase()
     {
-        // Stand ground and shoot at the target
-        Vector3 targetLocation = GameManager.instance.players[0].transform.position - transform.position;
-        // rotate to players position
-        controller.motor.rotateTowards(targetLocation);
-        // keep firing on cooldown
-        controller.motor.ShootMissile();
-
-        // if health is below half
-        // go into flee state
-        if (controller.data.healthCurrent <= (controller.data.healthMax / 2)) // TODO: Probably change to a percentage threshhold, but we will leave at 1/2 for now
+        if (controller.targetPlayer != null)
         {
-            currentState = states.flee;
+            // Stand ground and shoot at the target
+            Vector3 targetLocation = controller.targetPlayer.transform.position - transform.position;
+            // rotate to players position
+            controller.motor.rotateTowards(targetLocation);
+            // keep firing on cooldown
+            controller.motor.ShootMissile();
+
+            // if health is below half
+            // go into flee state
+            if (controller.data.healthCurrent <= (controller.data.healthMax / 2)) // TODO: Probably change to a percentage threshhold, but we will leave at 1/2 for now
+            {
+                currentState = states.flee;
+            }
+            // if can no longer see or hear player, resume patrolling
+            foreach (TankData targetable in GameManager.instance.players)
+            {
+                if (!controller.canSeeTarget(targetable) && !controller.canHearTarget(targetable))
+                {
+                    currentState = states.patrol;
+                }
+            }
         }
-        // if can no longer see or hear player, resume patrolling
-        if (!controller.canHearTarget() && !controller.canSeeTarget())
+        else
         {
             currentState = states.patrol;
         }
@@ -65,23 +75,30 @@ public class Controller_AI_Guard : MonoBehaviour
 
     void stateFlee()
     {
-        float distanceFromTarget = Vector3.Distance(transform.position, GameManager.instance.players[0].transform.position);
-        if (controller.distanceToMaintain >= distanceFromTarget)
+        if (controller.targetPlayer != null)
         {
-            // run away from player
-            Vector3 directionToFlee = -(GameManager.instance.players[0].transform.position - transform.position);
-            if (controller.canMove())
+            float distanceFromTarget = Vector3.Distance(transform.position, controller.targetPlayer.transform.position);
+            if (controller.distanceToMaintain >= distanceFromTarget)
             {
+                // run away from player
+                Vector3 directionToFlee = -(controller.targetPlayer.transform.position - transform.position);
+                if (controller.canMove())
+                {
+                    controller.obstacleAvoidanceMove();
+                    controller.motor.rotateTowards(directionToFlee);
+                }
                 controller.obstacleAvoidanceMove();
-                controller.motor.rotateTowards(directionToFlee);
+                // increase the time we have been fleeing
             }
-            controller.obstacleAvoidanceMove();
-            // increase the time we have been fleeing
+            else
+            {
+                // then go back to chase state
+                currentState = states.chase;
+            }
         }
         else
         {
-            // then go back to chase state
-            currentState = states.chase;
+            currentState = states.patrol;
         }
     }
 
@@ -101,10 +118,14 @@ public class Controller_AI_Guard : MonoBehaviour
         {
             controller.getNextWaypoint();
         }
-        if (controller.canHearTarget() || controller.canSeeTarget())
+        foreach (TankData targetable in GameManager.instance.players)
         {
-            // go into chase state
-            currentState = states.chase;
+            if (controller.canSeeTarget(targetable) || controller.canHearTarget(targetable))
+            {
+                controller.targetPlayer = controller.aquireTarget();
+                // go into chase state
+                currentState = states.chase;
+            }
         }
     }
 }
