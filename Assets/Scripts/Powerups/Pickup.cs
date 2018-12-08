@@ -97,7 +97,7 @@ public class Pickup : MonoBehaviour
             // if sound is set play it
             if (pickupSound != null)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position, 1.0f);
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position, (GameManager.instance.sfxVol + 80)/80);
             }
             // Destroy gameObject
             Destroy(gameObject);
