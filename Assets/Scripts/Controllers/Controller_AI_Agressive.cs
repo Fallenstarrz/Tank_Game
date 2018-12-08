@@ -67,12 +67,9 @@ public class Controller_AI_Agressive : MonoBehaviour
             {
                 currentState = states.flee;
             }
-            foreach (TankData targetable in GameManager.instance.players)
+            if (!controller.canHearTarget(controller.targetPlayer) && !controller.canSeeTarget(controller.targetPlayer))
             {
-                if (!controller.canSeeTarget(targetable) && !controller.canHearTarget(targetable))
-                {
-                    currentState = states.patrol;
-                }
+                currentState = states.patrol;
             }
         }
         else

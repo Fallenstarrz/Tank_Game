@@ -82,9 +82,9 @@ public class GameManager : MonoBehaviour
         {
             if (player1 == null)
             {
+                player1Lives -= 1;
                 if (player1Lives >= 0)
                 {
-                    player1Lives -= 1;
                     player1 = respawnPlayer();
                     setUpPlayer1();
                 }
@@ -93,9 +93,9 @@ public class GameManager : MonoBehaviour
             {
                 if (player2 == null)
                 {
+                    player2Lives -= 1;
                     if (player2Lives >= 0)
                     {
-                        player2Lives -= 1;
                         player2 = respawnPlayer();
                         setUpPlayer2();
                     }

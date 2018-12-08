@@ -48,30 +48,27 @@ public class Controller_AI_Skittish : MonoBehaviour
         if (controller.targetPlayer != null)
         {
             // go to last known player position if we don't see target
-            foreach (TankData targetable in GameManager.instance.players)
+            if (controller.canSeeTarget(controller.targetPlayer) || controller.canHearTarget(controller.targetPlayer))
             {
-                if (controller.canSeeTarget(targetable) || controller.canHearTarget(targetable))
+                if (Vector3.Distance(transform.position, lastKnownPosition) >= controller.closeEnough)
                 {
-                    if (Vector3.Distance(transform.position, lastKnownPosition) >= controller.closeEnough)
-                    {
-                        controller.motor.rotateTowards(lastKnownPosition - transform.position);
-                        controller.obstacleAvoidanceMove();
-                    }
-                    else
-                    {
-                        currentState = states.patrol;
-                    }
+                    controller.motor.rotateTowards(lastKnownPosition - transform.position);
+                    controller.obstacleAvoidanceMove();
                 }
-                // if we see player shoot at him and go back into flee state
                 else
                 {
-                    controller.motor.rotateTowards(controller.targetPlayer.transform.position - transform.position);
-                    if (Vector3.Angle(transform.position, controller.targetPlayer.transform.position) < controller.skittishShootingAngle)
-                    {
-                        controller.motor.ShootMissile();
-                        lastKnownPosition = controller.targetPlayer.transform.position;
-                        currentState = states.flee;
-                    }
+                    currentState = states.patrol;
+                }
+            }
+            // if we see player shoot at him and go back into flee state
+            else
+            {
+                controller.motor.rotateTowards(controller.targetPlayer.transform.position - transform.position);
+                if (Vector3.Angle(transform.position, controller.targetPlayer.transform.position) < controller.skittishShootingAngle)
+                {
+                    controller.motor.ShootMissile();
+                    lastKnownPosition = controller.targetPlayer.transform.position;
+                    currentState = states.flee;
                 }
             }
         }

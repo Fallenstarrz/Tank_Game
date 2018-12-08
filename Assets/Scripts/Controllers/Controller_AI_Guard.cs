@@ -59,12 +59,9 @@ public class Controller_AI_Guard : MonoBehaviour
                 currentState = states.flee;
             }
             // if can no longer see or hear player, resume patrolling
-            foreach (TankData targetable in GameManager.instance.players)
+            if (!controller.canSeeTarget(controller.targetPlayer) && !controller.canHearTarget(controller.targetPlayer))
             {
-                if (!controller.canSeeTarget(targetable) && !controller.canHearTarget(targetable))
-                {
-                    currentState = states.patrol;
-                }
+                currentState = states.patrol;
             }
         }
         else

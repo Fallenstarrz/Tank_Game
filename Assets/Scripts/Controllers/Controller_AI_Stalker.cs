@@ -68,13 +68,10 @@ public class Controller_AI_Stalker : MonoBehaviour
                 healthLastKnown = controller.data.healthCurrent;
                 currentState = states.flee;
             }
-            foreach (TankData targetable in GameManager.instance.players)
+            // if can no longer see or hear player, resume patrolling
+            if (!controller.canHearTarget(controller.targetPlayer) && !controller.canSeeTarget(controller.targetPlayer))
             {
-                // if can no longer see or hear player, resume patrolling
-                if (!controller.canHearTarget(targetable) && !controller.canSeeTarget(targetable))
-                {
-                    currentState = states.patrol;
-                }
+                currentState = states.patrol;
             }
         }
         else
