@@ -17,15 +17,24 @@ public class UI_HighscoreDisplay : MonoBehaviour
         highScoreLoc = GetComponent<RectTransform>();
         if (GameManager.instance.isMultiplayer == true)
         {
-            highScoreLoc.anchoredPosition = singlePlayerPos;
+            setHighScoreMultiplayer();
         }
         else
         {
-            highScoreLoc.anchoredPosition = multiPlayerPos;
+            setHighScoreSinglePlayer();
         }
         highScoreNum.text = GameManager.instance.highScore.ToString();
 	}
-	
+
+    public void setHighScoreSinglePlayer()
+    {
+        highScoreLoc.anchoredPosition = singlePlayerPos;
+    }
+
+    public void setHighScoreMultiplayer()
+    {
+        highScoreLoc.anchoredPosition = multiPlayerPos;
+    }
     // display high score
 	// Update is called once per frame
 	void Update ()

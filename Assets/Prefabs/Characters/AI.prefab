@@ -727,6 +727,7 @@ MonoBehaviour:
   motor: {fileID: 0}
   waypoints: []
   currentWaypoint: 0
+  targetPlayer: {fileID: 0}
   timeInFlee: 0
   timeToFlee: 5
   closeEnough: 2
@@ -921,6 +922,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myName: No Name
+  score: 0
+  lives: 0
   movementSpeed: 5
   backwardMovementSpeed: 3
   rotationSpeed: 180
@@ -1009,7 +1012,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 10}
+  m_SizeDelta: {x: 25, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224067854189992006
 RectTransform:

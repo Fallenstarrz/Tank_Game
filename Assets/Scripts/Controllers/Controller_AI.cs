@@ -110,7 +110,10 @@ public class Controller_AI : MonoBehaviour
         // Remove from GameManager List players
         GameManager.instance.aiUnits.Remove(this.data);
         // TODO: TEMPORARY FIX
-        GameManager.instance.numAICurrent--;
+        if (GameManager.instance.numAICurrent != 0)
+        {
+            GameManager.instance.numAICurrent--;
+        }
     }
 
     public bool canMove()

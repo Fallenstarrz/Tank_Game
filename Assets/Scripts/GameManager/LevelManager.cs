@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public Camera camP1;
     public Camera camP2;
+    public UI_HighscoreDisplay highScoreDisplay;
 
 	// Use this for initialization
 	void Start ()
@@ -22,20 +23,60 @@ public class LevelManager : MonoBehaviour
         {
             camP1 = GameManager.instance.player1.GetComponentInChildren<Camera>();
         }
+        if (GameManager.instance.player2 != null)
+        {
+            camP2 = GameManager.instance.player2.GetComponentInChildren<Camera>();
+        }
         // if multiplayer is enabled
         // set transforms of those players cameras
         if (GameManager.instance.isMultiplayer == true)
         {
-            if (GameManager.instance.player2 != null)
+            if (p1Alive() == true && p2Alive() == true)
             {
-                camP2 = GameManager.instance.player2.GetComponentInChildren<Camera>();
+                setCameraSplitscreen();
             }
-            setCameraSplitscreen();
+            else
+            {
+                setCameraFullscreen(getLivingPlayerCamera());
+                highScoreDisplay = FindObjectOfType<UI_HighscoreDisplay>();
+                highScoreDisplay.setHighScoreSinglePlayer();
+            }
         }
         else
         {
             setCameraFullscreen(camP1);
         }
+    }
+
+    bool p1Alive()
+    {
+        if (GameManager.instance.player1Lives >= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    bool p2Alive()
+    {
+        if (GameManager.instance.player2Lives >= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    Camera getLivingPlayerCamera()
+    {
+        if (p1Alive() == true)
+        {
+            return camP1;
+        }
+        if (p2Alive() == true)
+        {
+            return camP2;
+        }
+        return null;
     }
 
     // set up split screen

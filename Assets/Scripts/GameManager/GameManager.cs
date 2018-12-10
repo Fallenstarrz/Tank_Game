@@ -76,7 +76,10 @@ public class GameManager : MonoBehaviour
     {
         if (!characterSpawns.Count.Equals(0))
         {
-               respawnAI();
+            if (numAICurrent < numAIToSpawn)
+            {
+                respawnAI();
+            }
         }
         if (!characterSpawns.Count.Equals(0))
         {
@@ -114,10 +117,10 @@ public class GameManager : MonoBehaviour
         player1Lives = playerLivesMax;
         player2Lives = playerLivesMax;
         characterSpawns.Clear();
-        numAICurrent = 0;
         players.Clear();
         aiUnits.Clear();
         spawnedPickups.Clear();
+        numAICurrent = 0;
     }
 
     // check if both players are dead
@@ -127,16 +130,16 @@ public class GameManager : MonoBehaviour
         {
             if (player1Lives < 0 && player2Lives < 0)
             {
-                resetGame();
                 SceneManager.LoadScene(0);
+                resetGame();
             }
         }
         else
         {
             if (player1Lives < 0)
             {
-                resetGame();
                 SceneManager.LoadScene(0);
+                resetGame();
             }
         }
     }
@@ -203,15 +206,12 @@ public class GameManager : MonoBehaviour
     {
         // Maybe use a for loop instead
         // TODO: This loop is temporary
-        while (numAICurrent < numAIToSpawn)
-        {
-            int randomNum = Random.Range(0, characterSpawns.Count-1);
-            Transform locationToSpawn = characterSpawns[randomNum];
-            GameObject newAI = Instantiate(aiPrefab, locationToSpawn);
-            newAI.transform.SetParent(charactersHolder);
-            setAiWaypoints(newAI, locationToSpawn);
-            numAICurrent++;
-        }
+        int randomNum = Random.Range(0, characterSpawns.Count - 1);
+        Transform locationToSpawn = characterSpawns[randomNum];
+        GameObject newAI = Instantiate(aiPrefab, locationToSpawn);
+        newAI.transform.SetParent(charactersHolder);
+        setAiWaypoints(newAI, locationToSpawn);
+        numAICurrent++;
     }
 
     // Set waypoints on newly spawned AI
