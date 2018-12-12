@@ -95,6 +95,9 @@ public class LevelManager : MonoBehaviour
     // set up full screen
     void setCameraFullscreen(Camera cam)
     {
-        cam.rect = new Rect(0, 0, 1, 1);
+        if (cam != null)
+        {
+            cam.rect = new Rect(0, 0, 1, 1);
+        }
     }
 }
