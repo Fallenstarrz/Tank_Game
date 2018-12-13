@@ -1,6 +1,6 @@
 ﻿Controller_AI:
 	Controller_AI holds all of the logic for controlling the AI's. The FSMs for their personalities are inside of their respective scripts, but this one is important
-	for controlling their movements, rotations and senses.
+	for controlling their movements, rotations and senses. This does something too.
 
 Agressive : 
 	Agressive AI is a standard seek and destroy AI
